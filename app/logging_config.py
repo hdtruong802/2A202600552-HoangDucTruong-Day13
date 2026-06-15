@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import json
 import logging
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -11,15 +13,31 @@ from structlog.contextvars import merge_contextvars
 from .pii import scrub_text
 
 LOG_PATH = Path(os.getenv("LOG_PATH", "data/logs.jsonl"))
+AUDIT_LOG_PATH = Path(os.getenv("AUDIT_LOG_PATH", "data/audit.jsonl"))
 
 
 class JsonlFileProcessor:
+    def __init__(self, path: Path) -> None:
+        self.path = path
+
     def __call__(self, logger: Any, method_name: str, event_dict: dict[str, Any]) -> dict[str, Any]:
-        LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+        self.path.parent.mkdir(parents=True, exist_ok=True)
         rendered = structlog.processors.JSONRenderer()(logger, method_name, event_dict)
-        with LOG_PATH.open("a", encoding="utf-8") as f:
+        with self.path.open("a", encoding="utf-8") as f:
             f.write(rendered + "\n")
         return event_dict
+
+
+def write_audit_event(event: str, payload: dict[str, Any] | None = None) -> None:
+    AUDIT_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+    record = {
+        "ts": datetime.now(timezone.utc).isoformat(),
+        "event": event,
+        "service": "audit",
+        "payload": payload or {},
+    }
+    with AUDIT_LOG_PATH.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(record) + "\n")
 
 
 
@@ -42,11 +60,10 @@ def configure_logging() -> None:
             merge_contextvars,
             structlog.processors.add_log_level,
             structlog.processors.TimeStamper(fmt="iso", utc=True, key="ts"),
-            # TODO: Register your PII scrubbing processor here
-            # scrub_event,
+            scrub_event,
             structlog.processors.StackInfoRenderer(),
             structlog.processors.format_exc_info,
-            JsonlFileProcessor(),
+            JsonlFileProcessor(LOG_PATH),
             structlog.processors.JSONRenderer(),
         ],
         wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
