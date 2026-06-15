@@ -7,7 +7,7 @@ from . import metrics
 from .mock_llm import FakeLLM
 from .mock_rag import retrieve
 from .pii import hash_user_id, summarize_text
-from .tracing import langfuse_context, observe
+from .tracing import langfuse_context, observe, tracing_enabled
 
 
 @dataclass
@@ -52,6 +52,9 @@ class LabAgent:
             tokens_out=response.usage.output_tokens,
             quality_score=quality_score,
         )
+
+        if tracing_enabled():
+            langfuse_context.flush()
 
         return AgentResult(
             answer=response.text,
