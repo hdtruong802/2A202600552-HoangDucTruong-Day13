@@ -66,7 +66,7 @@
   - Audit logs tách riêng (`data/audit.jsonl`)
   - Scripts: `collect_evidence.py`, `run_incident_drill.py`, `check_langfuse.py`
   - Incident drill rag_slow + RCA
-- [EVIDENCE_LINK]: https://github.com/hdtruong802/2A202600552-HoangDucTruong-Day13/commits/main (eb89fd5..98368b0)
+- [EVIDENCE_LINK]: https://github.com/hdtruong802/2A202600552-HoangDucTruong-Day13/commits/main (eb89fd5..991d7c2)
 
 ---
 
