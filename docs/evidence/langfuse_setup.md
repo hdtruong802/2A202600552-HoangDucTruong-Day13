@@ -13,4 +13,6 @@ python scripts/load_test.py --concurrency 3
 
 View traces: https://cloud.langfuse.com
 
-Optional: save screenshots as `docs/evidence/langfuse_traces.png` and `docs/evidence/langfuse_waterfall.png` for submission.
+Screenshots saved:
+- `docs/evidence/langfuse_traces.png`
+- `docs/evidence/langfuse_waterfall.png`

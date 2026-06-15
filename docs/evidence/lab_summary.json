@@ -1,5 +1,5 @@
 {
-  "validate_logs_output": "--- Lab Verification Results ---\nTotal log records analyzed: 184\nRecords with missing required fields: 0\nRecords with missing enrichment (context): 0\nUnique correlation IDs found: 92\nPotential PII leaks detected: 0\n\n--- Grading Scorecard (Estimates) ---\n+ [PASSED] Basic JSON schema\n+ [PASSED] Correlation ID propagation\n+ [PASSED] Log enrichment\n+ [PASSED] PII scrubbing\n\nEstimated Score: 100/100",
+  "validate_logs_output": "--- Lab Verification Results ---\nTotal log records analyzed: 224\nRecords with missing required fields: 0\nRecords with missing enrichment (context): 0\nUnique correlation IDs found: 112\nPotential PII leaks detected: 0\n\n--- Grading Scorecard (Estimates) ---\n+ [PASSED] Basic JSON schema\n+ [PASSED] Correlation ID propagation\n+ [PASSED] Log enrichment\n+ [PASSED] PII scrubbing\n\nEstimated Score: 100/100",
   "correlation_id_sample": {
     "service": "api",
     "payload": {
@@ -31,14 +31,14 @@
     "ts": "2026-06-15T06:59:47.847168Z"
   },
   "metrics_snapshot": {
-    "traffic": 30,
+    "traffic": 50,
     "latency_p50": 150.0,
     "latency_p95": 150.0,
     "latency_p99": 150.0,
-    "avg_cost_usd": 0.0019,
-    "total_cost_usd": 0.058,
-    "tokens_in_total": 1020,
-    "tokens_out_total": 3662,
+    "avg_cost_usd": 0.002,
+    "total_cost_usd": 0.1007,
+    "tokens_in_total": 1700,
+    "tokens_out_total": 6376,
     "error_rate_pct": 0.0,
     "error_breakdown": {},
     "quality_avg": 0.88,
@@ -88,7 +88,7 @@
       }
     }
   ],
-  "unique_correlation_ids": 92,
+  "unique_correlation_ids": 112,
   "tracing_enabled": true,
-  "langfuse_trace_count": 30
+  "langfuse_trace_count": 50
 }

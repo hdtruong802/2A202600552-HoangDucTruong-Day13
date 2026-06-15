@@ -16,7 +16,7 @@
 
 ## 2. Group Performance (Auto-Verified)
 - [VALIDATE_LOGS_FINAL_SCORE]: 100/100
-- [TOTAL_TRACES_COUNT]: 30
+- [TOTAL_TRACES_COUNT]: 50
 - [PII_LEAKS_FOUND]: 0
 
 ---
@@ -24,22 +24,23 @@
 ## 3. Technical Evidence (Group)
 
 ### 3.1 Logging & Tracing
-- [EVIDENCE_CORRELATION_ID_SCREENSHOT]: docs/evidence/correlation_id.md
-- [EVIDENCE_PII_REDACTION_SCREENSHOT]: docs/evidence/pii_redaction.md
-- [EVIDENCE_TRACE_WATERFALL_SCREENSHOT]: https://cloud.langfuse.com (≥30 traces verified via `scripts/check_langfuse.py`)
-- [TRACE_WATERFALL_EXPLANATION]: Trace waterfall sẽ hiển thị span `run` (agent) gồm retrieve (RAG) và LLM generate. Khi `rag_slow` bật, span retrieve kéo dài ~2.5s làm P95 tăng — dùng correlation_id `req-445c9647` để liên kết log với trace.
+- [EVIDENCE_CORRELATION_ID_SCREENSHOT]: docs/evidence/correlation_id.png
+- [EVIDENCE_PII_REDACTION_SCREENSHOT]: docs/evidence/pii_redaction.png
+- [EVIDENCE_LANGFUSE_TRACES_SCREENSHOT]: docs/evidence/langfuse_traces.png
+- [EVIDENCE_TRACE_WATERFALL_SCREENSHOT]: docs/evidence/langfuse_waterfall.png
+- [TRACE_WATERFALL_EXPLANATION]: Trace waterfall hiển thị span `run` (agent) gồm retrieve (RAG) và LLM generate. Khi `rag_slow` bật, span retrieve kéo dài ~2.5s làm P95 tăng — dùng correlation_id `req-445c9647` để liên kết log với trace.
 
 ### 3.2 Dashboard & SLOs
-- [DASHBOARD_6_PANELS_SCREENSHOT]: docs/evidence/dashboard.md (live at http://127.0.0.1:8000/dashboard)
+- [DASHBOARD_6_PANELS_SCREENSHOT]: docs/evidence/dashboard_6_panels.png
 - [SLO_TABLE]:
 | SLI | Target | Window | Current Value |
 |---|---:|---|---:|
-| Latency P95 | < 3000ms | 28d | 2651ms (spike during rag_slow drill) |
+| Latency P95 | < 3000ms | 28d | 150ms |
 | Error Rate | < 2% | 28d | 0.0% |
-| Cost Budget | < $2.5/day | 1d | $0.026 |
+| Cost Budget | < $2.5/day | 1d | $0.058 |
 
 ### 3.3 Alerts & Runbook
-- [ALERT_RULES_SCREENSHOT]: config/alert_rules.yaml
+- [ALERT_RULES_SCREENSHOT]: docs/evidence/alert_rules.png
 - [SAMPLE_RUNBOOK_LINK]: docs/alerts.md#1-high-latency-p95
 
 ---

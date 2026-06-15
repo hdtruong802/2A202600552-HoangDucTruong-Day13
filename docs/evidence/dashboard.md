@@ -12,4 +12,4 @@ Panels:
 
 Auto-refresh: 20 seconds. Data source: `/metrics` and `/metrics/timeseries`.
 
-**Action required:** Take a screenshot of the dashboard while the app is running and save as `docs/evidence/dashboard_6_panels.png`.
+Screenshot: `docs/evidence/dashboard_6_panels.png`
