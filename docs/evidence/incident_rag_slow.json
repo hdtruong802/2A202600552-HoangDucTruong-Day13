@@ -1,0 +1,108 @@
+{
+  "scenario": "rag_slow",
+  "steps": [
+    {
+      "phase": "baseline",
+      "metrics": {
+        "traffic": 0,
+        "latency_p50": 0.0,
+        "latency_p95": 0.0,
+        "latency_p99": 0.0,
+        "avg_cost_usd": 0.0,
+        "total_cost_usd": 0,
+        "tokens_in_total": 0,
+        "tokens_out_total": 0,
+        "error_rate_pct": 0.0,
+        "error_breakdown": {},
+        "quality_avg": 0.0,
+        "slo": {
+          "latency_p95_ms": 3000,
+          "error_rate_pct": 2.0,
+          "daily_cost_usd": 2.5,
+          "quality_avg": 0.75
+        }
+      },
+      "response": {
+        "answer": "Starter answer. Teams should improve this output logic and add better quality checks. Use retrieved context and keep responses concise.",
+        "correlation_id": "req-718b8940",
+        "latency_ms": 150,
+        "tokens_in": 32,
+        "tokens_out": 148,
+        "cost_usd": 0.002316,
+        "quality_score": 0.8
+      }
+    },
+    {
+      "phase": "incident_active",
+      "metrics": {
+        "traffic": 1,
+        "latency_p50": 150.0,
+        "latency_p95": 150.0,
+        "latency_p99": 150.0,
+        "avg_cost_usd": 0.0023,
+        "total_cost_usd": 0.0023,
+        "tokens_in_total": 32,
+        "tokens_out_total": 148,
+        "error_rate_pct": 0.0,
+        "error_breakdown": {},
+        "quality_avg": 0.8,
+        "slo": {
+          "latency_p95_ms": 3000,
+          "error_rate_pct": 2.0,
+          "daily_cost_usd": 2.5,
+          "quality_avg": 0.75
+        }
+      },
+      "response": {
+        "answer": "Starter answer. Teams should improve this output logic and add better quality checks. Use retrieved context and keep responses concise.",
+        "correlation_id": "req-445c9647",
+        "latency_ms": 2651,
+        "tokens_in": 32,
+        "tokens_out": 105,
+        "cost_usd": 0.001671,
+        "quality_score": 0.8
+      }
+    },
+    {
+      "phase": "recovered",
+      "metrics": {
+        "traffic": 2,
+        "latency_p50": 2651.0,
+        "latency_p95": 2651.0,
+        "latency_p99": 2651.0,
+        "avg_cost_usd": 0.002,
+        "total_cost_usd": 0.004,
+        "tokens_in_total": 64,
+        "tokens_out_total": 253,
+        "error_rate_pct": 0.0,
+        "error_breakdown": {},
+        "quality_avg": 0.8,
+        "slo": {
+          "latency_p95_ms": 3000,
+          "error_rate_pct": 2.0,
+          "daily_cost_usd": 2.5,
+          "quality_avg": 0.75
+        }
+      },
+      "response": {
+        "answer": "Starter answer. Teams should improve this output logic and add better quality checks. Use retrieved context and keep responses concise.",
+        "correlation_id": "req-aed443b2",
+        "latency_ms": 150,
+        "tokens_in": 32,
+        "tokens_out": 131,
+        "cost_usd": 0.002061,
+        "quality_score": 0.8
+      }
+    }
+  ],
+  "analysis": {
+    "symptom": "latency_p95 spiked when rag_slow was enabled",
+    "baseline_latency_ms": 150,
+    "incident_latency_ms": 2651,
+    "correlation_id_during_incident": "req-445c9647",
+    "root_cause": "retrieve() sleeps 2.5s when STATE['rag_slow'] is True (mock_rag.py)",
+    "debug_flow": "Metrics (P95\u2191) \u2192 Traces (slow RAG span) \u2192 Logs (correlation_id links request)",
+    "fix_action": "POST /incidents/rag_slow/disable",
+    "preventive_measure": "Alert on latency_p95 > 5000ms with runbook docs/alerts.md#1-high-latency-p95"
+  }
+}

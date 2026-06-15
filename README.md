@@ -35,6 +35,8 @@ cp .env.example .env
 uvicorn app.main:app --reload
 ```
 
+Open dashboard: http://127.0.0.1:8000/dashboard
+
 ## Tooling
 
 ```bash
@@ -46,6 +48,15 @@ python scripts/inject_incident.py --scenario rag_slow
 
 # Check your implementation progress
 python scripts/validate_logs.py
+
+# Collect evidence for blueprint report
+python scripts/collect_evidence.py
+
+# Run incident drill (rag_slow)
+python scripts/run_incident_drill.py
+
+# Verify Langfuse setup (requires keys in .env)
+python scripts/check_langfuse.py
 ```
 
 ## Repo map
